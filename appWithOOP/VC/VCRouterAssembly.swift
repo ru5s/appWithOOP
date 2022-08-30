@@ -20,6 +20,7 @@ class VCRouterAssembly: VCRouterAssemblyProtocol {
     func configureView(view: ViewController) {
         
         let presenter = PresenterVC(view)
+        
         view.presenter = presenter
         
        

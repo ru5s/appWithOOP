@@ -15,22 +15,17 @@ class ViewController: UIViewController {
     
     var tableView: UITableView!
     
-    var secondView = SecondViewController()
-    
     let model: ModelProtocol = Model()
     
     var presenter: ProtocolPresenterVC!
 
     let assambly: VCRouterAssemblyProtocol = VCRouterAssembly()
     
-    var indexCellForPresenter: Int = 3
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         assambly.configureView(view: self)
-        
-        secondView = SecondViewController()
         
         tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         
@@ -40,12 +35,13 @@ class ViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
         
-        addTableView(myView: tableView)
-        
-        tableView.separatorColor = .white
-        
         tableView.reloadData()
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        tableView.separatorColor = .white
+        addTableView(myView: tableView)
     }
     
     func addTableView(myView: UITableView){
@@ -118,32 +114,13 @@ extension ViewController: UITableViewDataSource{
     
     @objc func touchedBtnCell(sender: UIButton){
         let indexCell = sender.tag
-        indexCellForPresenter = sender.tag
-        
-//        secondView.imageView.image = model.arrayImages[indexCell].image
-//        secondView.label.text = model.arrayImages[indexCell].text
         
         presenter?.addImage(index: indexCell)
         presenter?.addText(index: indexCell)
         presenter.openPhotoPage()
 
-
-//        secondView.modalTransitionStyle = .crossDissolve
-//        secondView.modalPresentationStyle = .fullScreen
-        
-//        present(secondView, animated: true)
         
     }
-    
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        tableView.deselectRow(at: indexPath, animated: false)
-//        secondView.imageView.image = model.arrayImages[indexPath.row].image
-//        secondView.label.text = model.arrayImages[indexPath.row].text
-//        tableView.reloadData()
-//        present(secondView, animated: true)
-//    }
     
 }
 

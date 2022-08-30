@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ProtocolPresenterVC: class{
     init(_ viewController: ViewController)
@@ -17,7 +18,9 @@ protocol ProtocolPresenterVC: class{
 
 class PresenterVC: ProtocolPresenterVC {
     
-    weak var viewController = ViewController()
+    let navigationController = UINavigationController()
+    
+    weak var viewController: ViewController!
     
     required init(_ viewController: ViewController) {
         self.viewController = viewController
@@ -27,10 +30,9 @@ class PresenterVC: ProtocolPresenterVC {
     let model = Model()
     
     func addImage(index: Int){
-        secondVC.addImage(index: index)
-
-//        secondVC.imageView.image = model.arrayImages[index].image
-        
+        secondVC.indexOf = index
+        secondVC.delegate = viewController
+        secondVC.imageView.image = model.arrayImages[index].image
     }
     
     func addText(index: Int){
@@ -38,9 +40,9 @@ class PresenterVC: ProtocolPresenterVC {
     }
     
     func openPhotoPage(){
-        
         secondVC.modalTransitionStyle = .crossDissolve
         secondVC.modalPresentationStyle = .fullScreen
+        
         viewController?.present(secondVC, animated: true)
     }
 }

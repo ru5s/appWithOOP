@@ -9,18 +9,18 @@ import UIKit
 
 protocol ProtocolSecondViewController {
     func addImage(index: Int)
+    func addText(index: Int)
 }
 
 
 class SecondViewController: UIViewController, ProtocolSecondViewController {
+    
     var model = Model()
     
-    func addImage(index: Int) {
-        imageView.image = model.arrayImages[index].image
-        print("index of array is \(index)")
-        print("index of image is \(model.arrayImages[index].image)")
-    }
+    var presenter: ProtocolPresenterVC!
+    weak var delegate: ViewController!
     
+    var indexOf: Int = 0
     
     var imageView = UIImageView()
     var backButton = UIButton()
@@ -34,16 +34,23 @@ class SecondViewController: UIViewController, ProtocolSecondViewController {
         backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
-        addBackBtn(btn: backButton)
-        
-        addImageView(imageView: imageView, backBtn: backButton)
-        
-        addLabel(label: label, image: imageView)
-        
     }
     
+    override func viewDidLayoutSubviews() {
+        addBackBtn(btn: backButton)
+        addImageView(imageView: imageView, backBtn: backButton)
+        addLabel(label: label, image: imageView)
+        
+        addImage(index: indexOf)
+        addText(index: indexOf)
+    }
     
-    
+    func addImage(index: Int) {
+        imageView.image = model.arrayImages[index].image
+    }
+    func addText(index: Int) {
+        label.text = model.arrayImages[index].text
+    }
     
     func addBackBtn(btn: UIButton){
         btn.translatesAutoresizingMaskIntoConstraints = false
