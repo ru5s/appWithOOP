@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         assambly.configureView(view: self)
+        
         secondView = SecondViewController()
         
         tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
@@ -38,13 +39,10 @@ class ViewController: UIViewController {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
+        
         addTableView(myView: tableView)
         
-        
         tableView.separatorColor = .white
-//        tableView.backgroundColor = .systemGray3
-        
-        
         
         tableView.reloadData()
         
